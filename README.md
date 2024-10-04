@@ -1,6 +1,8 @@
 Rotas de alunos, coordenadores, professores, turmas e cursos.
 >É necessário fazer requisições para usar as rotas
 
+
+
 ## Instalação e Execução
 
 1. Clone o repositório:
@@ -26,7 +28,7 @@ Rotas de alunos, coordenadores, professores, turmas e cursos.
     ```
 
 
-# Rotas
+# Explicação das rotas
 Aluno
 ```js
 GET /api/students
