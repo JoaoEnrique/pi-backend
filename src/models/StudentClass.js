@@ -19,11 +19,16 @@ class StudentClass extends Model {
                 },
                 onDelete: 'CASCADE', // Comportamento ao deletar uma classe
             },
+            created_at: DataTypes.INTEGER,
+            updated_at: DataTypes.INTEGER,
         }, {
             sequelize: connection,
             modelName: 'StudentClass',
             tableName: 'student_classes', // Nome da tabela pivot
             timestamps: false, // Caso não precise de timestamps
+            defaultScope: {
+                attributes: { exclude: ['createdAt', 'updatedAt'] }, // campos a serem excluídos
+            },
         })
     }
 }

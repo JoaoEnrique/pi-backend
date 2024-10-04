@@ -4,8 +4,13 @@ class Class extends Model {
     static init(connection){
         super.init({
             semester: DataTypes.INTEGER,
+            created_at: DataTypes.INTEGER,
+            updated_at: DataTypes.INTEGER,
         }, {
-            sequelize: connection
+            sequelize: connection,
+            defaultScope: {
+                attributes: { exclude: ['createdAt', 'updatedAt'] }, // campos a serem excluídos
+            },
         })
     }
 

@@ -8,9 +8,14 @@ class User extends Model {
            password: DataTypes.STRING,
            user_type: DataTypes.STRING,
            code: DataTypes.STRING,
+           created_at: DataTypes.INTEGER,
+           updated_at: DataTypes.INTEGER,
        }, {
            sequelize: connection,
            tableName: 'users',
+           defaultScope: {
+            attributes: { exclude: ['createdAt', 'updatedAt'] }, // campos a serem excluídos
+        },
        },);
    }
 
