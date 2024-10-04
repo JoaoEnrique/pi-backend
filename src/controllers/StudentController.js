@@ -1,4 +1,5 @@
 import Student from '../models/Student.js';
+import Class from '../models/Class.js';
 import StudentClass from '../models/StudentClass.js';
 import xlsx from 'xlsx';
 import path from 'path';
@@ -92,13 +93,22 @@ class StudentController {
                 }
 
                 if(req.body.class_id){
-                    let student_class = await StudentClass.findOne({ where: { class_id: req.body.class_id } });
+                    let thisClass = await Class.findByPk(req.body.class_id);
+                    let student_class = await StudentClass.findOne({ 
+                        where: {
+                            class_id: req.body.class_id,
+                            student_id: student.id
+                        } 
+                    });
+
+                    if(!thisClass)
+                        return res.status(400).json({ message: 'Essa turma não existe ou foi excluida' });
 
                     if(student_class){
                         existingStudentClass.push(student)
                     } else {
                         await StudentClass.create({
-                            student_id: student.id, class_id
+                            student_id: student.id, class_id: req.body.class_id, ra: row['ra']
                         });
                     }
                 }
