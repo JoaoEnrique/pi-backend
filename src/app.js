@@ -1,33 +1,34 @@
-require('dotenv').config();
-const cookieParser = require('cookie-parser');
-const express = require('express');
-const app = express();
-const cors = require('cors');
-require('dotenv').config();
+import cookieParser from 'cookie-parser';
+import express from 'express';
+import cors from 'cors';
+import courseRoutes from './routes/course.js'; // Ajuste a extensão do arquivo se necessário
+import classesRoutes from './routes/class.js'; // Ajuste a extensão do arquivo se necessário
+import studentsRoutes from './routes/student.js'; // Ajuste a extensão do arquivo se necessário
+import teachersRoutes from './routes/teacher.js'; // Ajuste a extensão do arquivo se necessário
+import coordinatorsRoutes from './routes/coordinator.js'; // Ajuste a extensão do arquivo se necessário
+import auth from './middlewares/auth.js'
 
-app.use(cors())
+const app = express();
+
+app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 
-app.get('/', (req, res) => res.json("API Funcionando"))
-
-// Import das rotas
-const courseRoutes = require('./routes/course');
-const usersRoutes = require('./routes/user'); 
-const classesRoutes = require('./routes/class'); 
+app.get('/', (req, res) => res.json("API Funcionando"));
 
 // Rotas
-app.use('/api/courses', courseRoutes);
-app.use('/api/users', usersRoutes);
-app.use('/api/classes', classesRoutes);
+app.use('/api/courses', auth, courseRoutes);
+app.use('/api/classes', auth, classesRoutes);
+app.use('/api/students', auth, studentsRoutes);
+app.use('/api/teachers', auth, teachersRoutes);
+app.use('/api/coordinators', auth, coordinatorsRoutes);
 
-
-// erro 404
+// Erro 404
 app.use((req, res, next) => {
     res.status(404).json({
-      error: 'Rota não encontrada',
-      status: 404
+        error: 'Rota não encontrada',
+        status: 404
     });
 });
 
-module.exports = app;
+export default app;

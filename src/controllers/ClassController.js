@@ -1,8 +1,8 @@
-const Class = require('../models/Class')
-const User = require('../models/User')
-const Course = require('../models/Course')
+import User from '../models/User.js';
+import Course from '../models/Course.js';
+import Class from '../models/Class.js';
 
-module.exports = {
+class ClassController {
     async index(req, res){
         try {
             const classes = await Class.findAll();
@@ -10,24 +10,11 @@ module.exports = {
         } catch (error) {
             return res.status(500).json({error: error.message});
         }
-    },
+    }
 
     async store(req, res){
         try {
-            const { semester, teacher_id, course_id } = req.body;
-
-            // Verificar se todos os campos obrigatórios foram passados
-            if(!semester || !teacher_id || !course_id)
-                return res.status(400).json({error: 'Insira todos os campos'});
-
-            const user = await User.findByPk(teacher_id);// Verificar se o professor existe
-            const course = await Course.findByPk(course_id);// Verificar se o curso existe
-            
-            if(!user)
-                return res.status(400).json({error: 'Professor não encontrado'});
-
-            if(!course)
-                return res.status(400).json({error: 'Curso não encontrado'});
+            const { semester, teacher_id, course_id } = req.validatedData;
 
             // Cria o curso
             const newClass = await Class.create({
@@ -38,31 +25,17 @@ module.exports = {
         } catch (error) {
             return res.status(500).json({error: error.message, errormessage: error + ""});
         }
-    },
+    }
 
     async update(req, res) {
         try {
             const { class_id } = req.params;
-            const { semester, teacher_id, course_id } = req.body;
-
-            // Verificar se todos os campos obrigatórios foram passados
-            if(!semester || !teacher_id || !course_id)
-                return res.status(400).json({error: 'Insira todos os campos'});
-
+            const { semester, teacher_id, course_id } = req.validatedData;
             const updateClass = await Class.findByPk(class_id);
 
             // Verificar se a turma existe
             if (!updateClass)
                 return res.status(404).json({ error: 'Turma não encontrada' });
-
-            const user = await User.findByPk(teacher_id);// Verificar se o professor existe
-            const course = await Course.findByPk(course_id);// Verificar se o curso existe
-            
-            if(!user)
-                return res.status(400).json({error: 'Professor não encontrado'});
-
-            if(!course)
-                return res.status(400).json({error: 'Curso não encontrado'});
 
             // Cria o curso
             await updateClass.update({
@@ -72,7 +45,7 @@ module.exports = {
         } catch (error) {
             return res.status(500).json({error: error.message});
         }
-    },
+    }
 
     async delete(req, res){
         try {
@@ -94,3 +67,5 @@ module.exports = {
         }
     }
 }
+
+export default new ClassController();

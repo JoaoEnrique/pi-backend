@@ -1,7 +1,7 @@
-const Course = require('../models/Course')
-const User = require('../models/User')
+import User from '../models/User.js';
+import Course from '../models/Course.js';
 
-module.exports = {
+class CourseController {
     async index(req, res){
         try {
             const courses = await Course.findAll();
@@ -9,69 +9,44 @@ module.exports = {
         } catch (error) {
             return res.status(500).json({error: error.message});
         }
-    },
+    }
 
     async store(req, res){
         try {
-            const { teacher_id, name, period, is_annual, type_work } = req.body;
-
-            // Verificar se todos os campos obrigatórios foram passados
-            if(!teacher_id || !name || !period || !is_annual || !type_work)
-                return res.status(400).json({error: 'Insira todos os campos'});
-
-            // Verificar se o professor existe
-            const user = await User.findByPk(teacher_id);
-
-            if(!user)
-                return res.status(400).json({error: 'Professor não encontrado'});
+            const { coordinator_id, name, period, is_annual, type_work } = req.validatedCourseData;
 
             // Cria o curso
             const course = await Course.create({
-                teacher_id, name, period, type_work, is_annual
+                coordinator_id, name, period, type_work, is_annual
             })
 
             return res.json({message: "Curso criado", course});
         } catch (error) {
             return res.status(500).json({error: error.message});
         }
-    },
+    }
 
     async update(req, res) {
         try {
             const { course_id } = req.params;
-            const { teacher_id, name, period, is_annual, type_work } = req.body;
+            const { coordinator_id, name, period, is_annual, type_work } = req.validatedCourseData;
 
-            // Verificar se o ID do curso foi passado
-            if (!course_id)
-                return res.status(400).json({ error: 'ID do curso não encontrado' });
-
-            // Buscar o curso no banco
-            const course = await Course.findByPk(course_id);
+            const course = await Course.findByPk(course_id);// Buscar o curso no banco
 
             // Verificar se o curso existe
             if (!course)
                 return res.status(404).json({ error: 'Curso não encontrado' });
 
-            // Verificar se todos os campos obrigatórios foram passados
-            if (!teacher_id || !name || !period || !is_annual || !type_work)
-                return res.status(400).json({ error: 'Insira todos os campos' });
-
-            // Verificar se o professor existe
-            const user = await User.findByPk(teacher_id);
-
-            if (!user)
-                return res.status(400).json({ error: 'Professor não encontrado' });
-
             // Atualizar o curso
             await course.update({
-                teacher_id, name, period, is_annual, type_work
+                coordinator_id, name, period, is_annual, type_work
             });
 
             return res.json({ message: 'Curso atualizado com sucesso', course });
         } catch (error) {
             return res.status(500).json({error: error.message});
         }
-    },
+    }
 
     async delete(req, res){
         try {
@@ -93,3 +68,5 @@ module.exports = {
         }
     }
 }
+
+export default new CourseController();

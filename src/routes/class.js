@@ -1,10 +1,11 @@
-const express = require('express');
+import express from 'express';
+import ClassController from '../controllers/ClassController.js';
+import classValidator from '../middlewares/classValidator.js'
 const router = express.Router();
-const ClassController = require('../controllers/ClassController');
 
 router.get('/', ClassController.index);
-router.post('/store', ClassController.store);
+router.post('/store', classValidator, ClassController.store);
 router.delete('/delete/:class_id', ClassController.delete);
-router.put('/update/:class_id', ClassController.update);
+router.put('/update/:class_id', classValidator, ClassController.update);
 
-module.exports = router;
+export default router;

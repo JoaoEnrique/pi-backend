@@ -1,6 +1,8 @@
-require('dotenv').config();
+import dotenv from 'dotenv';
+// const dotenv = require('dotenv')
+dotenv.config();
 
-module.exports = {
+const dbConfig = {
     dialect: process.env.DB_DIALECT,
     host: process.env.DB_HOST,
     username: process.env.DB_USER,
@@ -11,3 +13,6 @@ module.exports = {
         underscored: true, // Define que os nomes de colunas e tabelas serão em snake_case
     },
 }
+
+export default dbConfig;
+// module.exports = dbConfig;

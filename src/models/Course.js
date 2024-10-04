@@ -1,4 +1,4 @@
-const { Model, DataTypes } = require('sequelize');
+import { Model, DataTypes } from 'sequelize';
 
 class Course extends Model {
     static init(connection){
@@ -13,8 +13,8 @@ class Course extends Model {
     }
 
     static associate(models){
-        this.belongsTo(models.User, { foreignKey: 'teacher_id', as: 'advisor'})
+        this.belongsTo(models.User, { foreignKey: 'coordinator_id', as: 'coordinator'})
     }
 }
 
-module.exports = Course;
+export default Course;

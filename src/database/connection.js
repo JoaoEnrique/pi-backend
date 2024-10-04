@@ -1,18 +1,26 @@
-const Sequelize = require('sequelize');
-const dbConfig = require('../config/database');
+import { Sequelize } from 'sequelize';
+import dbConfig from '../config/database.js';
 
-const User = require('../models/User');
-const Course = require('../models/Course');
-const Class = require('../models/Class');
+// Importação dos modelos
+import User from '../models/User.js';
+import Student from '../models/Student.js';
+
+import Course from '../models/Course.js';
+import Class from '../models/Class.js';
 
 const connection = new Sequelize(dbConfig);
 
+// Inicialização dos modelos
 User.init(connection);
+Student.init(connection);
+
 Course.init(connection);
 Class.init(connection);
 
-Course.associate(connection.models);
+// Associações
 User.associate(connection.models);
+Student.associate(connection.models);
+Course.associate(connection.models);
 Class.associate(connection.models);
 
-module.exports = connection;
+export default connection;

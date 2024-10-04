@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "removeComments": true,
+    "sourceMap": false,
+    "outDir": "dist",
+    "target": "es5",
+    "downlevelIteration": true,                               
+    "module": "ES6",
+    "allowJs": true,                          
+    "esModuleInterop": true,                       
+    "skipLibCheck": true,                          
+    "forceConsistentCasingInFileNames": true       
+  },
+  "include": [
+    "src/**/*.ts"
+, "src/entities", "src/models/User.js", "src/controllers/TeacherController.js", "src/models/Teacher.js", "src/server.js", "src/app.js", "src/routes/course.js", "src/routes/student.js", "src/routes/teacher.js", "src/routes/class.js"  ]
+}
