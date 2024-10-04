@@ -12,7 +12,7 @@ Rotas de alunos, coordenadores, professores, turmas e cursos.
 
 2. Instale as dependências:
    ```bash
-   npm install
+   npm run dev
     ```
 
 3. Configure o banco de dados e as variáveis de ambiente no arquivo .env.

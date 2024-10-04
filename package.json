@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsnd --transpile-only --ignore-watch node_modules src/server.ts",
-    "dev": "nodemon src/server.ts",
+    "start": "tsnd --transpile-only --ignore-watch node_modules src/server.js",
+    "dev": "nodemon src/server.js",
     "sequelize": "sequelize"
   },
   "keywords": [],
