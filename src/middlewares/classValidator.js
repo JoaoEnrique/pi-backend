@@ -1,7 +1,7 @@
-import User from "../models/User.js";
-import Course from "../models/Course.js";
+const User = require('../models/User');
+const Course = require('../models/Course');
 
-export default async (req, res, next) => {
+module.exports =  async (req, res, next) => {
     const { semester, teacher_id, course_id } = req.body;
 
     // Verificar se todos os campos obrigatórios foram passados

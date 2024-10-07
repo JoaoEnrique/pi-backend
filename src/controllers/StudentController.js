@@ -1,12 +1,12 @@
-import Student from '../models/Student.js';
-import Class from '../models/Class.js';
-import StudentClass from '../models/StudentClass.js';
-import xlsx from 'xlsx';
-import path from 'path';
-const file = path.resolve('src/file.xlsx');
-import _ from 'lodash';
-import fs from 'fs';
+const Student = require('../models/Student');
+const Class = require('../models/Class');
+const StudentClass = require('../models/StudentClass');
+const xlsx = require('xlsx');
+const path = require('path');
+const _ = require('lodash');
+const fs = require('fs');
 
+const file = path.resolve('src/file.xlsx');
 
 class StudentController {
     async index(req, res){
@@ -184,4 +184,4 @@ class StudentController {
     }
 }
 
-export default new StudentController();
+module.exports =  new StudentController();

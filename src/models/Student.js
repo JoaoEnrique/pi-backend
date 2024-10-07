@@ -1,4 +1,4 @@
-import User from './User.js';
+const User = require('./User')
 
 class Student extends User {
     static init(connection) {
@@ -10,4 +10,4 @@ class Student extends User {
     }
 }
 
-export default Student;
+module.exports = Student;

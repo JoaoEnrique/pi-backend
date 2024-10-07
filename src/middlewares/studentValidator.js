@@ -1,4 +1,4 @@
-export default async (req, res, next) => {
+module.exports = async (req, res, next) => {
     const { name, email, password, code } = req.body;
 
     if(!name || !email || !password)

@@ -1,12 +1,12 @@
-import cookieParser from 'cookie-parser';
-import express from 'express';
-import cors from 'cors';
-import courseRoutes from './routes/course.js'; // Ajuste a extensão do arquivo se necessário
-import classesRoutes from './routes/class.js'; // Ajuste a extensão do arquivo se necessário
-import studentsRoutes from './routes/student.js'; // Ajuste a extensão do arquivo se necessário
-import teachersRoutes from './routes/teacher.js'; // Ajuste a extensão do arquivo se necessário
-import coordinatorsRoutes from './routes/coordinator.js'; // Ajuste a extensão do arquivo se necessário
-import auth from './middlewares/auth.js'
+const cookieParser = require('cookie-parser');
+const express = require('express');
+const cors = require('cors');
+const courseRoutes = require('./routes/course');
+const classesRoutes = require('./routes/class');
+const studentsRoutes = require('./routes/student');
+const teachersRoutes = require('./routes/teacher');
+const coordinatorsRoutes = require('./routes/coordinator');
+const auth = require('./middlewares/auth');
 
 const app = express();
 
@@ -31,4 +31,4 @@ app.use((req, res, next) => {
     });
 });
 
-export default app;
+module.exports = app;

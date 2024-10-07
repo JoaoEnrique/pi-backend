@@ -38,44 +38,36 @@ DELETE /api/students/{user_id}
 PUT /api/students/{user_id}
 ```
 
-Professor
+Professor de TG
 ```js
 GET /api/teachers
 POST /api/teachers/store
-DELETE /api/teachers/{user_id}
-PUT /api/teachers/{user_id}
+DELETE /api/teachers/{teacher_id}
+PUT /api/teachers/{teacher_id}
 ```
 
 Coordenador
 ```js
 GET /api/coordinators
 POST /api/coordinators/store
-DELETE /api/coordinators/{user_id}
-PUT /api/coordinators/{user_id}
-```
-
-Professor
-```js
-GET /api/teachers
-POST /api/teachers/store
-DELETE /api/teachers/{user_id}
-PUT /api/teachers/{user_id}
+DELETE /api/coordinators/{coordinator_id}
+PUT /api/coordinators/{coordinator_id}
 ```
 
 Curso
 ```js
 GET /api/courses
 POST /api/courses/store
-DELETE /api/courses/{user_id}
-PUT /api/courses/{user_id}
+DELETE /api/courses/{course_id}
+PUT /api/courses/{course_id}
 ```
 
 Turma
 ```js
 GET /api/classes
 POST /api/classes/store
-DELETE /api/classes/{user_id}
-PUT /api/classes/{user_id}
+DELETE /api/classes/{class_id}
+PUT /api/classes/{class_id}
 ```
 
 <br>
@@ -86,6 +78,9 @@ PUT /api/classes/{user_id}
 `GET /api/students`
 
 Retorna uma lista de todos os alunos cadastrados no sistema.
+
+- Exemplo de retorno
+
 
 ### Criar Aluno
 `POST /api/students/store`

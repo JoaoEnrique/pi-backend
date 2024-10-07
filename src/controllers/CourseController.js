@@ -1,5 +1,4 @@
-import User from '../models/User.js';
-import Course from '../models/Course.js';
+const Course = require('../models/Course.js')
 
 class CourseController {
     async index(req, res){
@@ -69,4 +68,4 @@ class CourseController {
     }
 }
 
-export default new CourseController();
+module.exports = new CourseController();

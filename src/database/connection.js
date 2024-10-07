@@ -1,12 +1,12 @@
-import { Sequelize } from 'sequelize';
-import dbConfig from '../config/database.js';
+const { Sequelize } = require('sequelize');
+const dbConfig = require('../config/database');
 
 // Importação dos modelos
-import User from '../models/User.js';
-import Student from '../models/Student.js';
-import StudentClass from '../models/StudentClass.js';
-import Course from '../models/Course.js';
-import Class from '../models/Class.js';
+const User = require('../models/User');
+const Student = require('../models/Student');
+const StudentClass = require('../models/StudentClass');
+const Course = require('../models/Course');
+const Class = require('../models/Class');
 
 const connection = new Sequelize(dbConfig);
 
@@ -24,4 +24,4 @@ Student.associate(connection.models);
 Course.associate(connection.models);
 Class.associate(connection.models);
 
-export default connection;
+module.exports = connection;

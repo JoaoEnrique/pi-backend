@@ -1,5 +1,4 @@
-import User from '../models/User.js';
-import bcrypt from 'bcrypt';
+const User = require('../models/User.js')
 
 class CoordinatorController {
     async index(req, res){
@@ -78,4 +77,4 @@ class CoordinatorController {
     }
 }
 
-export default new CoordinatorController();
+module.exports = new CoordinatorController();

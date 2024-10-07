@@ -1,5 +1,4 @@
-import User from '../models/User.js';
-import bcrypt from 'bcrypt';
+const User = require('../models/User.js')
 
 class TeacherController {
     async index(req, res){
@@ -114,4 +113,4 @@ class TeacherController {
     }
 }
 
-export default new TeacherController();
+module.exports =  new TeacherController();

@@ -1,7 +1,7 @@
-import express from 'express';
-import StudentController from '../controllers/StudentController.js';
-import studentValidator from '../middlewares/studentValidator.js';
-import uploadFile from '../middlewares/uploadFile.js';
+const express = require('express');
+const StudentController = require('../controllers/StudentController');
+const studentValidator = require('../middlewares/studentValidator');
+const uploadFile = require('../middlewares/uploadFile');
 const router = express.Router();
 
 router.get('/', StudentController.index);
@@ -10,4 +10,4 @@ router.post('/store-by-file', uploadFile.single('file'), StudentController.store
 router.delete('/delete/:user_id', StudentController.delete);
 router.put('/update/:user_id', studentValidator, StudentController.update);
 
-export default router;
+module.exports = router;
