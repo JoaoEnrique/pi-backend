@@ -16,38 +16,10 @@ class TeacherController {
 
     async store(req, res){
         try {
-            const { name, email, password, code } = req.body;
-
-            if(!name || !email || !password || !code)
-                return res.status(400).json({error: 'Insira todos os campos'});
-
-            // Criptografar a senha com bcrypt
-            const saltRounds = 10; // Número de saltos para o algoritmo, mais saltos significa mais segurança, mas também mais lento.
-            const hashedPassword = await bcrypt.hash(password, saltRounds);
+            const { name, email, password, code } = req.validatedData;
 
             const user = await User.create({
-                name, email, password: hashedPassword, user_type: 'teacher', code
-            })
-
-            return res.json({message: "Professor criado", user});
-        } catch (error) {
-            return res.status(500).json({error: error.message});
-        }
-    }
-
-    async storeByFile(req, res){
-        try {
-            const { name, email, password, code } = req.body;
-
-            if(!name || !email || !password || !code)
-                return res.status(400).json({error: 'Insira todos os campos'});
-
-            // Criptografar a senha com bcrypt
-            const saltRounds = 10; // Número de saltos para o algoritmo, mais saltos significa mais segurança, mas também mais lento.
-            const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-            const user = await User.create({
-                name, email, password: hashedPassword, user_type: 'teacher', code
+                name, email, password, user_type: 'teacher', code
             })
 
             return res.json({message: "Professor criado", user});
@@ -59,10 +31,7 @@ class TeacherController {
     async update(req, res) {
         try {
             const { user_id } = req.params;
-            const { name, email, password, code } = req.body;
-
-            if(!name || !email || !password || !code)
-                return res.status(400).json({error: 'Insira todos os campos'});
+            const { name, email, password, code } = req.validatedData;
 
             // Verificar se o ID do Professor foi passado
             if (!user_id)
@@ -76,13 +45,9 @@ class TeacherController {
                 return res.status(404).json({ error: 'Professor não encontrado' });
 
 
-            // Criptografar a senha com bcrypt
-            const saltRounds = 10; // Número de saltos para o algoritmo, mais saltos significa mais segurança, mas também mais lento.
-            const hashedPassword = await bcrypt.hash(password, saltRounds);
-
             // Atualizar o Professor com os novos dados
             await user.update({
-                name, email, password: hashedPassword, code
+                name, email, password, code
             });
 
             return res.json({ message: 'Professor atualizado com sucesso', user });

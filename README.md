@@ -42,16 +42,16 @@ Professor de TG
 ```js
 GET /api/teachers
 POST /api/teachers/store
-DELETE /api/teachers/{teacher_id}
-PUT /api/teachers/{teacher_id}
+DELETE /api/teachers/{user_id}
+PUT /api/teachers/{user_id}
 ```
 
 Coordenador
 ```js
 GET /api/coordinators
 POST /api/coordinators/store
-DELETE /api/coordinators/{coordinator_id}
-PUT /api/coordinators/{coordinator_id}
+DELETE /api/coordinators/{user_id}
+PUT /api/coordinators/{user_id}
 ```
 
 Curso
@@ -72,148 +72,460 @@ PUT /api/classes/{class_id}
 
 <br>
 
-# Rotas de Aluno
+# Alunos
 
-### Listar Alunos
-`GET /api/students`
+- **Listar Alunos**  
+  `GET /api/students`  
+  Retorna uma lista de todos os alunos cadastrados no sistema.
 
-Retorna uma lista de todos os alunos cadastrados no sistema.
-
-- Exemplo de retorno
-
-
-### Criar Aluno
-`POST /api/students/store`
-
-Cadastra um novo aluno. Requer os seguintes dados no corpo da requisição:
-- `name`: Nome do aluno (string, obrigatório)
-- `email`: Email do aluno (string, obrigatório)
-- `password`: Senha do aluno (string, obrigatório)
-- `code`: Código de matrícula ou identificação (string, opcional)
-
-### Criar Alunos por Arquivo
-`POST /api/students/store-by-file`
-
-Permite o cadastro de vários alunos de uma só vez através de um arquivo XLSX. O arquivo deve conter os dados de cada aluno conforme o formato especificado.
-
-### Deletar Aluno
-`DELETE /api/students/{user_id}`
-
-Remove um aluno específico pelo `user_id`.
-
-### Atualizar Aluno
-`PUT /api/students/{user_id}`
-
-Atualiza os dados de um aluno específico pelo `user_id`. Os campos de atualização podem ser enviados no corpo da requisição.
-
+  Exemplo de retorno:
+  ```json
+  {
+      "id": 195,
+      "name": "Aluno 2",
+      "email": "aluno@gmail.com",
+      "password": "$2b$10$MMRIPwMm5JG4e7x/ZNaf/.GtgIHRDbJei0tKqecKZ8JSXpFf.4YxO",
+      "user_type": "student",
+      "code": "123456",
+      "created_at": "2024-10-07T12:25:48.000Z",
+      "updated_at": "2024-10-07T12:25:48.000Z"
+  }
+  ```
 <br>
 
-# Rotas de Professor
+- **Criar Aluno**  
+  `POST /api/students/store`  
+  Cadastra um novo aluno. Requer os seguintes dados no corpo da requisição:
+  - `name`: Nome do aluno (string, obrigatório)
+  - `email`: Email do aluno (string, obrigatório)
+  - `password`: Senha do aluno (string, obrigatório)
+  - `code`: Código de matrícula ou identificação (string, opcional)
 
-### Listar Professores
-`GET /api/teachers`
+  Exemplo de corpo da requisição:
+  ```json
+  {
+      "name": "Aluno",
+      "email": "aluno@gmail.com",
+      "password": "123",
+      "code": "123456"
+  }
+  ```
 
-Retorna uma lista de todos os professores cadastrados no sistema.
-
-### Criar Professor
-`POST /api/teachers/store`
-
-Cadastra um novo professor. Requer os seguintes dados no corpo da requisição:
-- `name`: Nome do professor (string, obrigatório)
-- `email`: Email do professor (string, obrigatório)
-- `password`: Senha do professor (string, obrigatório)
-- `code`: Código de identificação (string, opcional)
-
-### Deletar Professor
-`DELETE /api/teachers/{user_id}`
-
-Remove um professor específico pelo `user_id`.
-
-### Atualizar Professor
-`PUT /api/teachers/{user_id}`
-
-Atualiza os dados de um professor específico pelo `user_id`.
-
+  Exemplo de retorno:
+  ```json
+  {
+    "message": "Aluno criado",
+    "user": {
+        "id": 195,
+        "name": "Aluno",
+        "email": "aluno@gmail.com",
+        "password": "$2b$10$MMRIPwMm5JG4e7x/ZNaf/.GtgIHRDbJei0tKqecKZ8JSXpFf.4YxO",
+        "user_type": "student",
+        "code": "123456",
+        "created_at": "2024-10-07T12:25:48.000Z",
+        "updated_at": "2024-10-07T12:25:48.000Z"
+    }
+  }
+  ```
 <br>
 
-# Rotas de Coordenador
+- **Criar Aluno por arquivo**  
+  `POST /api/students/store-by-file`  
+  Permite o cadastro de vários alunos de uma só vez através de um arquivo XLSX. O arquivo deve conter os dados de cada aluno conforme o formato especificado. A requisição retorna os alunos que já estavam cadastrados.
 
-### Listar Coordenadores
-`GET /api/coordinators`
-
-Retorna uma lista de todos os coordenadores cadastrados no sistema.
-
-### Criar Coordenador
-`POST /api/coordinators/store`
-
-Cadastra um novo coordenador. Requer os seguintes dados no corpo da requisição:
-- `name`: Nome do coordenador (string, obrigatório)
-- `email`: Email do coordenador (string, obrigatório)
-- `password`: Senha do coordenador (string, obrigatório)
-- `code`: Código de identificação (string, opcional)
-
-### Deletar Coordenador
-`DELETE /api/coordinators/{user_id}`
-
-Remove um coordenador específico pelo `user_id`.
-
-### Atualizar Coordenador
-`PUT /api/coordinators/{user_id}`
-
-Atualiza os dados de um coordenador específico pelo `user_id`.
-
+  Exemplo de retorno:
+  ```json
+  {
+      "message": "Alunos cadastrados",
+      "existingStudentClass": []
+  }
+  ```
 <br>
 
-# Rotas de Curso
+- **Apagar Aluno**  
+  `DELETE /api/students/{user_id}`  
+  Remove um aluno específico pelo user_id.
 
-### Listar Cursos
-`GET /api/courses`
-
-Retorna uma lista de todos os cursos cadastrados no sistema.
-
-### Criar Curso
-`POST /api/courses/store`
-
-Cadastra um novo curso. Requer os seguintes dados no corpo da requisição:
-- `name`: Nome do curso (string, obrigatório)
-- `description`: Descrição do curso (string, opcional)
-- `coordinator_id`: ID do coordenador responsável (inteiro, opcional)
-
-### Deletar Curso
-`DELETE /api/courses/{course_id}`
-
-Remove um curso específico pelo `course_id`.
-
-### Atualizar Curso
-`PUT /api/courses/{course_id}`
-
-Atualiza os dados de um curso específico pelo `course_id`.
-
+  Exemplo de retorno:
+  ```json
+  {
+      "message": "Alunos apagado"
+  }
+  ```
 <br>
 
-# Rotas de Turma
+- **Atualizar Aluno**  
+    `PUT /api/students/{user_id}`
 
-### Listar Turmas
-`GET /api/classes`
+    Atualiza os dados de um aluno específico pelo `user_id`. Os campos de atualização podem ser enviados no corpo da requisição.
+        
+    Exemplo de retorno
+    ```json
+    {
+        "message": "Aluno atualizado com sucesso",
+        "user": {
+            "id": 2,
+            "name": "Aluno",
+            "email": "aluno@gmail.com",
+            "password": "$2b$10$/JdnAvu0wX8m6LyFJ0VZHusE7EfpC1Gf2Pw6x4zR9A8I6ynzRPWt2",
+            "user_type": "student",
+            "code": "22316",
+            "created_at": "2024-10-07T12:36:43.000Z",
+            "updated_at": "2024-10-07T12:36:43.000Z",
+            "updatedAt": "2024-10-07T12:44:15.305Z"
+        }
+    }
+    ```
+<br>
 
-Retorna uma lista de todas as turmas cadastradas no sistema.
+# Professores
 
-### Criar Turma
-`POST /api/classes/store`
+- **Listar Professores**  
+  `GET /api/teachers`  
+  Retorna uma lista de todos os professores cadastrados no sistema.
 
-Cadastra uma nova turma. Requer os seguintes dados no corpo da requisição:
-- `name`: Nome da turma (string, obrigatório)
-- `course_id`: ID do curso relacionado (inteiro, obrigatório)
+  Exemplo de retorno:
+  ```json
+  {
+      "id": 5,
+      "name": "Professor 1",
+      "email": "professor@gmail.com",
+      "password": "$2b$10$MMRIPwMm5JG4e7x/ZNaf/.GtgIHRDbJei0tKqecKZ8JSXpFf.4YxO",
+      "user_type": "teacher",
+      "created_at": "2024-10-07T12:25:48.000Z",
+      "updated_at": "2024-10-07T12:25:48.000Z"
+  }
+  ```
+<br>
 
-### Deletar Turma
-`DELETE /api/classes/{class_id}`
+- **Criar Professor**  
+  `POST /api/teachers/store`  
+  Cadastra um novo professor. Requer os seguintes dados no corpo da requisição:
+  - `name`: Nome do professor (string, obrigatório)
+  - `email`: Email do professor (string, obrigatório)
+  - `password`: Senha do professor (string, obrigatório)
 
-Remove uma turma específica pelo `class_id`.
+  Exemplo de corpo da requisição:
+  ```json
+  {
+      "name": "Professor",
+      "email": "professor@gmail.com",
+      "password": "123",
+      "code": "123456"
+  }
+  ```
 
-### Atualizar Turma
-`PUT /api/classes/{class_id}`
+  Exemplo de retorno:
+  ```json
+  {
+    "message": "Professor criado",
+    "user": {
+        "id": 6,
+        "name": "Professor",
+        "email": "professor@gmail.com",
+        "password": "$2b$10$MMRIPwMm5JG4e7x/ZNaf/.GtgIHRDbJei0tKqecKZ8JSXpFf.4YxO",
+        "user_type": "teacher",
+        "created_at": "2024-10-07T12:25:48.000Z",
+        "updated_at": "2024-10-07T12:25:48.000Z"
+    }
+  }
+  ```
+<br>
 
-Atualiza os dados de uma turma específica pelo `class_id`.
+- **Apagar Professor**  
+  `DELETE /api/teachers/{user_id}`  
+  Remove um professor específico pelo user_id.
+
+  Exemplo de retorno:
+  ```json
+  {
+    "message": "Professor apagado"
+  }
+  ```
+<br>
+
+- **Atualizar Professor**  
+  `PUT /api/teachers/update/{user_id}`  
+  Atualiza as informações de um professor existente. Requer os seguintes dados no corpo da requisição:
+  - `name`: Nome do professor (string, opcional)
+  - `email`: Email do professor (string, opcional)
+  - `password`: Senha do professor (string, opcional)
+
+  Exemplo de retorno
+  ```json
+  {
+    "message": "Professor atualizado com sucesso",
+    "user": {
+      "name": "Professor",
+      "email": "professor@gmail.com",
+      "password": "123",
+      "code": "123456"
+    }
+  }
+  ```
+<br>
+
+# Coordenador
+
+- **Listar Coordenador**  
+  `GET /api/teachers`  
+  Retorna uma lista de todos os coordenadores cadastrados no sistema.
+
+  Exemplo de retorno:
+  ```json
+  {
+      "id": 5,
+      "name": "Coordenador 1",
+      "email": "Coordenador@gmail.com",
+      "password": "$2b$10$MMRIPwMm5JG4e7x/ZNaf/.GtgIHRDbJei0tKqecKZ8JSXpFf.4YxO",
+      "user_type": "teacher",
+      "created_at": "2024-10-07T12:25:48.000Z",
+      "updated_at": "2024-10-07T12:25:48.000Z"
+  }
+  ```
+  <br>
+
+- **Criar Coordenador**  
+  `POST /api/teachers/store`  
+  Cadastra um novo Coordenador. Requer os seguintes dados no corpo da requisição:
+  - `name`: Nome do Coordenador (string, obrigatório)
+  - `email`: Email do Coordenador (string, obrigatório)
+  - `password`: Senha do Coordenador (string, obrigatório)
+
+  Exemplo de corpo da requisição:
+  ```json
+  {
+      "name": "Coordenador",
+      "email": "Coordenador@gmail.com",
+      "password": "123",
+      "code": "123456"
+  }
+  ```
+
+  Exemplo de retorno:
+  ```json
+  {
+    "message": "Coordenador criado",
+    "user" : {
+        "id": 6,
+        "name": "Coordenador",
+        "email": "Coordenador@gmail.com",
+        "password": "$2b$10$MMRIPwMm5JG4e7x/ZNaf/.GtgIHRDbJei0tKqecKZ8JSXpFf.4YxO",
+        "user_type": "teacher",
+        "created_at": "2024-10-07T12:25:48.000Z",
+        "updated_at": "2024-10-07T12:25:48.000Z"
+    }
+  }
+  ```
+<br>
+
+- **Apagar Coordenador**  
+  `DELETE /api/teachers/{user_id}`  
+  Remove um Coordenador específico pelo user_id.
+
+  Exemplo de retorno:
+  ```json
+  {
+    "message": "Coordenador apagado"
+  }
+  ```
+<br>
+
+- **Atualizar Coordenador**  
+  `PUT /api/teachers/update/{user_id}`  
+  Atualiza as informações de um Coordenador existente. Requer os seguintes dados no corpo da requisição:
+  - `name`: Nome do Coordenador (string, opcional)
+  - `email`: Email do Coordenador (string, opcional)
+  - `password`: Senha do Coordenador (string, opcional)
+
+  Exemplo de corpo da requisição:
+  ```json
+  {
+    "message": "Coordenador atualizado com sucesso",
+    "user": {
+      "name": "Coordenador",
+      "email": "Coordenador@gmail.com",
+      "password": "123",
+      "code": "123456"
+    }
+  }
+  ```
+
+# Curso
+
+- **Listar Cursos**  
+  `GET /api/courses`  
+  Retorna uma lista de todos os cursos cadastrados no sistema.
+
+  Exemplo de retorno:
+  ```json
+  {
+    "id": 1,
+    "name": "Analise e Desenvolvimento de Sistemas",
+    "period": "noite",
+    "is_annual": true,
+    "type_work": "Teórico",
+    "created_at": "2024-10-07T12:36:43.000Z",
+    "updated_at": "2024-10-07T12:36:43.000Z",
+    "coordinator_id": 1
+  }
+  ```
+<br>
+
+- **Criar Curso**  
+  `POST /api/courses/store`
+  
+  Cadastra um novo curso. Requer os seguintes dados no corpo da requisição:
+  - `name`: Nome do curso (string, obrigatório)
+  - `description`: Descrição do curso (string, opcional)
+  - `coordinator_id`: ID do coordenador responsável (inteiro, opcional)
+
+  Exemplo de corpo da requisição:
+  ```json
+  {
+    "coordinator_id": 1,
+    "name": "ADS",
+    "period": "tarde",
+    "is_annual": true,
+    "type_work": "monografia"
+  }
+  ```
+
+  Exemplo de retorno:
+  ```json
+  {
+    "message": "Curso criado",
+    "course": {
+        "id": 4,
+        "coordinator_id": 1,
+        "name": "ADS",
+        "period": "tarde",
+        "type_work": "monografia",
+        "is_annual": true,
+        "updatedAt": "2024-10-07T13:11:31.914Z",
+        "createdAt": "2024-10-07T13:11:31.914Z"
+    }
+  }
+  ```
+
+- **Apagar Curso**  
+  `DELETE /api/courses/{course_id}`  
+  Remove um Curso específico pelo `course_id`.
+
+  Exemplo de retorno:
+  ```json
+  {
+    "message": "Curso apagado"
+  }
+  ```
+<br>
+
+- **Atualizar Curso**  
+  `POST /api/courses/store`
+  
+  Atualiza os dados de um curso específico pelo `course_id`.
+
+  Exemplo de retorno:
+  ```json
+  {
+    "message": "Curso Atualizado",
+    "course": {
+        "id": 4,
+        "coordinator_id": 1,
+        "name": "ADS",
+        "period": "tarde",
+        "type_work": "monografia",
+        "is_annual": true,
+        "updatedAt": "2024-10-07T13:11:31.914Z",
+        "createdAt": "2024-10-07T13:11:31.914Z"
+    }
+  }
+  ```
+<br>
+
+# Turma
+
+- **Listar Turmas**  
+  `GET /api/courses`  
+  Retorna uma lista de todas as turmas cadastradas no sistema.
+
+  Exemplo de retorno:
+  ```json
+  {
+    "id": 1,
+    "semester": 1,
+    "created_at": "2024-10-07T12:36:43.000Z",
+    "updated_at": "2024-10-07T12:36:43.000Z",
+    "teacher_id": 1,
+    "course_id": 1
+  }
+  ```
+<br>
+
+- **Criar Turma**  
+  `POST /api/classes/store`  
+  Cadastra uma nova turma. Requer os seguintes dados no corpo da requisição:
+  - `teacher_id`: ID do professor (inteiro, obrigatório)
+  - `course_id`: ID do curso relacionado (inteiro, obrigatório)
+  - `semester`: Semestre ou ano da turma (inteiro, obrigatório)
+
+  Exemplo de corpo da requisição:
+  ```json
+  {
+    "teacher_id": 1,
+    "course_id": 1,
+    "semester": 1
+  }
+  ```
+
+  Exemplo de retorno:
+  ```json
+  {
+    "message": "Turma criada",
+    "class": {
+        "id": 4,
+        "semester": 1,
+        "teacher_id": 1,
+        "course_id": 1,
+        "updatedAt": "2024-10-07T13:24:14.403Z",
+        "createdAt": "2024-10-07T13:24:14.403Z"
+    }
+  }
+  ```
+<br>
+
+- **Apagar Turma**  
+  `DELETE /api/classes/{user_id}`  
+  Remove uma turma específica pelo `class_id`.
+
+  Exemplo de retorno:
+  ```json
+  {
+      "message": "Turma apagada"
+  }
+  ```
+<br>
+
+- **Atualizar Turma**  
+    `PUT /api/students/{user_id}`
+
+    Atualiza os dados de uma turma específica pelo `class_id`.
+        
+    Exemplo de retorno
+    ```json
+    {
+        "message": "Turma atualizada com sucesso",
+        "class": {
+            "id": 4,
+            "semester": 1,
+            "teacher_id": 1,
+            "course_id": 1,
+            "updatedAt": "2024-10-07T13:24:14.403Z",
+            "createdAt": "2024-10-07T13:24:14.403Z"
+        }
+    }
+    ```
+<br>
 
 ---
 

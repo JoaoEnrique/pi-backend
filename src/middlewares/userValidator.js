@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+
 module.exports = async (req, res, next) => {
     const { name, email, password, code } = req.body;
 
@@ -6,9 +8,9 @@ module.exports = async (req, res, next) => {
 
     // Criptografar a senha com bcrypt
     const saltRounds = 10; // Número de saltos para o algoritmo, mais saltos significa mais segurança, mas também mais lento.
-    password = await bcrypt.hash(password, saltRounds);
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    req.validatedData = { name, email, hashedPassword, code };
+    req.validatedData = { name, email, password: hashedPassword, code };
 
     next();
 };  
