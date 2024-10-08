@@ -1,10 +1,12 @@
 const Student = require('../models/Student');
 const Class = require('../models/Class');
 const StudentClass = require('../models/StudentClass');
+const EmailController = require('./EmailController');
 const xlsx = require('xlsx');
 const path = require('path');
 const _ = require('lodash');
 const fs = require('fs');
+const { generateRandomPassword } = require('../helpers/passwordHelper'); // Importando o helper
 
 const file = path.resolve('src/file.xlsx');
 
@@ -24,10 +26,12 @@ class StudentController {
 
     async store(req, res){
         try {
-            const {  name, email, password, code } = req.validatedData;
+            const {  name, email, hashedPassword, password, code } = req.validatedData;
             const user = await Student.create({
-                name, email, password, user_type: "student", code
+                name, email, hashedPassword, user_type: "student", code
             })
+
+            EmailController.sendPasswordEmail(user, password);
 
             return res.json({message: "Aluno criado", user});
         } catch (error) {
@@ -58,12 +62,13 @@ class StudentController {
                 const firstName = nameParts[0]; // Primeiro nome
                 const lastName = nameParts[nameParts.length - 1]; // Último sobrenome
                 const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}@fatec.sp.gov.br`;
+                const password = generateRandomPassword();
 
                 return {
                     ra: row[0].trim(),      // RA
                     name: formattedName,   // Nome
                     email: email,   // Email
-                    password: email,   // Email
+                    password: password,   // Email
                     // p1: row[2],      // P1
                     // p2: row[3],      // P2
                     // p3: row[4],      // P3
@@ -83,13 +88,17 @@ class StudentController {
                 if (student) {
                     existingStudent.push(student)
                 } else{
+                    const saltRounds = 10; // Número de saltos para o algoritmo, mais saltos significa mais segurança, mas também mais lento.
+                    const hashedPassword = await bcrypt.hash(row['password'], saltRounds);
+
                     student = await Student.create({
                         name: row['name'],
                         email: row['email'],
-                        password: row['password'], // Defina uma senha padrão ou gere uma
+                        password: hashedPassword, // Defina uma senha padrão ou gere uma
                         user_type: "student",
                         code: row['ra']
                     });
+                    EmailController.sendPasswordEmail(student, row['password']);
                 }
 
                 if(req.body.class_id){

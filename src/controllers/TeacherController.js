@@ -1,4 +1,5 @@
 const User = require('../models/User.js')
+const EmailController = require('./EmailController');
 
 class TeacherController {
     async index(req, res){
@@ -16,11 +17,13 @@ class TeacherController {
 
     async store(req, res){
         try {
-            const { name, email, password, code } = req.validatedData;
+            const { name, email, password, hashedPassword, code } = req.validatedData;
 
             const user = await User.create({
-                name, email, password, user_type: 'teacher', code
+                name, email, password: hashedPassword, user_type: 'teacher', code
             })
+
+            EmailController.sendPasswordEmail(user, password);
 
             return res.json({message: "Professor criado", user});
         } catch (error) {
@@ -31,7 +34,7 @@ class TeacherController {
     async update(req, res) {
         try {
             const { user_id } = req.params;
-            const { name, email, password, code } = req.validatedData;
+            const { name, email, hashedPassword, code } = req.validatedData;
 
             // Verificar se o ID do Professor foi passado
             if (!user_id)
@@ -47,7 +50,7 @@ class TeacherController {
 
             // Atualizar o Professor com os novos dados
             await user.update({
-                name, email, password, code
+                name, email, password: hashedPassword, code
             });
 
             return res.json({ message: 'Professor atualizado com sucesso', user });

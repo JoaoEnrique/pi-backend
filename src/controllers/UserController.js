@@ -1,12 +1,11 @@
-const User = require('../models/User.js')
-const EmailController = require('./EmailController');
+const User = require('./User')
 
-class CoordinatorController {
+class TeacherController {
     async index(req, res){
         try {
             const users = await User.findAll({
                 where:{
-                    user_type: 'coordinator'
+                    user_type: 'teacher'
                 }
             });
             return res.json(users);
@@ -17,15 +16,15 @@ class CoordinatorController {
 
     async store(req, res){
         try {
-            const {  name, email, hashedPassword, password, code } = req.validatedData;
+            const { name, email, password, code } = req.validatedData;
 
             const user = await User.create({
-                name, email, password: hashedPassword, user_type: 'coordinator', code
+                name, email, password, user_type: 'teacher', code
             })
 
             EmailController.sendPasswordEmail(user, password);
 
-            return res.json({message: "Coordenador criado", user});
+            return res.json({message: "Professor criado", user});
         } catch (error) {
             return res.status(500).json({error: error.message});
         }
@@ -34,25 +33,26 @@ class CoordinatorController {
     async update(req, res) {
         try {
             const { user_id } = req.params;
-            const { name, email, hashedPassword, code } = req.validatedData;
+            const { name, email, password, code } = req.validatedData;
 
-            // Verificar se o ID do Coordenador foi passado
+            // Verificar se o ID do Professor foi passado
             if (!user_id)
-                return res.status(400).json({ error: 'ID do Coordenador não encontrado' });
+                return res.status(400).json({ error: 'ID do Professor não encontrado' });
 
-            // Buscar o Coordenador no banco
+            // Buscar o Professor no banco
             const user = await User.findByPk(user_id);
 
-            // Verificar se o Coordenador existe
+            // Verificar se o Professor existe
             if (!user)
-                return res.status(404).json({ error: 'Coordenador não encontrado' });
+                return res.status(404).json({ error: 'Professor não encontrado' });
 
-            // Atualizar o Coordenador com os novos dados
+
+            // Atualizar o Professor com os novos dados
             await user.update({
-                name, email, password: hashedPassword, code
+                name, email, password, code
             });
 
-            return res.json({ message: 'Coordenador atualizado com sucesso', user });
+            return res.json({ message: 'Professor atualizado com sucesso', user });
         } catch (error) {
             return res.status(500).json({error: error.message});
         }
@@ -69,15 +69,15 @@ class CoordinatorController {
             const user = await User.findByPk(user_id);
 
             if(!user)
-                return res.status(400).json({error: "Coordenador não encontrado"})
+                return res.status(400).json({error: "Professor não encontrado"})
 
             await user.destroy();
 
-            return res.status(200).json({message: "Coordenador apagado"})
+            return res.status(200).json({message: "Professor apagado"})
         } catch (error) {
             return res.status(500).json({error: error.message});
         }
     }
 }
 
-module.exports = new CoordinatorController();
+module.exports =  new TeacherController();
