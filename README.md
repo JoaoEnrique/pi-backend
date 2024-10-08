@@ -1,7 +1,5 @@
-Rotas de alunos, coordenadores, professores, turmas e cursos.
->É necessário fazer requisições para usar as rotas
-
-
+Rotas de alunos, coordenadores, professores, turmas e cursos. Envia senha dos alunos por email.
+>Para enviar emails, é necessário criar <a href="https://myaccount.google.com/apppasswords?rapt=AEjHL4OQ0L3foz-LDBUJK3HzV_0cKD8whSP0HsSNcx0dQiUJsHCeNtP_L_bGOuAPwED8uokMMXCLYhq-si29EPSOKtmhiySfNxqALXmrVcJlKmJoHcN0euE"> senhas de APP pela conta do Google </a>
 
 ## Instalação e Execução
 
@@ -16,6 +14,22 @@ Rotas de alunos, coordenadores, professores, turmas e cursos.
     ```
 
 3. Configure o banco de dados e as variáveis de ambiente no arquivo .env.
+   ```bash
+    # Database
+    DB_DIALECT=mysql
+    DB_DATABASE=projeto_integrador
+    DB_USER=root
+    DB_PASSWORD=
+    DB_HOST=localhost
+
+    # EMAIL
+    SEND_MAIL=1 # Ativar envio de emails 
+    EMAIL_SERVICE='gmail'
+    EMAIL_USER=seu-login
+    EMAIL_PASS=sua-senha-de-apps # para envio de email é necessário criar senhas de apps e adicionar aqui
+
+    PORT=3000
+    ```
 
 4. Execute as migrações e seeds para preparar o banco de dados:
    ```bash
