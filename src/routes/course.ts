@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import express from 'express';
 import CourseController from '../controllers/CourseController';
-import CourseValidator from '../middlewares/courseValidator';
+import CourseValidator from '../middlewares/CourseValidator';
 const router = express.Router();
 
 router.get('/', (req: Request, res: Response) => {
