@@ -5,7 +5,7 @@ class PasswordHelper {
         this.size = 8;
         this.charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+<>?";
         this.saltRounds = 10;
-    }
+    } 
 
     // Função para gerar uma senha aleatória
     generateRandomPassword(length = 8) {
