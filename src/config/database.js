@@ -2,7 +2,7 @@ const dotenv = require('dotenv')
 dotenv.config();
 
 const dbConfig = {
-    dialect: process.env.DB_DIALECT,
+    dialect: 'mysql',
     host: process.env.DB_HOST,
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
