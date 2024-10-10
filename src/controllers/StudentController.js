@@ -6,7 +6,7 @@ const xlsx = require('xlsx');
 const path = require('path');
 const _ = require('lodash');
 const fs = require('fs');
-const { generateRandomPassword } = require('../helpers/PasswordHelper'); // Importando o helper
+const PasswordHelper= require('../helpers/PasswordHelper'); // Importando o helper
 
 const file = path.resolve('src/file.xlsx');
 
@@ -62,7 +62,7 @@ class StudentController {
                 const firstName = nameParts[0]; // Primeiro nome
                 const lastName = nameParts[nameParts.length - 1]; // Último sobrenome
                 const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}@fatec.sp.gov.br`;
-                const password = generateRandomPassword();
+                const password = PasswordHelper.generateRandomPassword();
 
                 return {
                     ra: row[0].trim(),      // RA
