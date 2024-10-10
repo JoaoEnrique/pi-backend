@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
-    "build": "tsc && npx sequelize-cli db:migrate",
+    "build": "tsc",
     "test": "jest --passWithNoTests",
     "start": "npm run build && node dist/server.js",
     "dev": "tsnd src/server.ts",
