@@ -22,7 +22,7 @@ router.post('/store', async (req: Request, res: Response, next: NextFunction) =>
 router.post('/store-by-file', async (req: Request, res: Response, next: NextFunction) => {
     StudentValidator.validate(req, res, next);
 }, async (req: Request, res: Response) => {
-    await StudentController.store(req, res);
+    await StudentController.storeByFile(req, res);
 });
 
 router.delete('/delete/:user_id', (req: Request, res: Response) => {

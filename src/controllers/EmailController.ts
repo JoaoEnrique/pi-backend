@@ -14,7 +14,7 @@ class EmailController {
             };
 
             try {
-                // await transporter.sendMail(mailOptions);
+                await transporter.sendMail(mailOptions);
             } catch (error) {
                 // throw new Error('Erro ao enviar e-mail com a senha');
             }

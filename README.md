@@ -1,6 +1,7 @@
 Rotas de alunos, coordenadores, professores, turmas e cursos. Envia senha dos alunos por email.
 >Para enviar emails, é necessário criar <a href="https://myaccount.google.com/apppasswords?rapt=AEjHL4OQ0L3foz-LDBUJK3HzV_0cKD8whSP0HsSNcx0dQiUJsHCeNtP_L_bGOuAPwED8uokMMXCLYhq-si29EPSOKtmhiySfNxqALXmrVcJlKmJoHcN0euE"> senhas de APP pela conta do Google </a>
 
+
 ## Instalação e Execução
 
 1. Clone o repositório:
