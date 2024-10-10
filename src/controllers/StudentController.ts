@@ -25,7 +25,7 @@ class StudentController {
             });
             return res.json(users);
         } catch (error: any) {
-            return res.status(500).json({error: error.message});
+            return res.status(500).json({error: "a" + error});
         }
     }
 
