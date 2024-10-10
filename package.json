@@ -4,8 +4,9 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/server.ts",
+    "start": "npm run build && node dist/server.js",
     "dev": "tsnd src/server.ts",
     "sequelize": "sequelize"
   },
