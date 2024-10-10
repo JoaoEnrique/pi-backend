@@ -8,7 +8,8 @@
     "test": "jest --passWithNoTests",
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
-    "sequelize": "sequelize"
+    "sequelize": "sequelize",
+    "vercel-build": "npm install"
   },
   "keywords": [],
   "author": "",
