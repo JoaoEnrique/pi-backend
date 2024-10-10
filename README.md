@@ -1,9 +1,7 @@
 Rotas de alunos, coordenadores, professores, turmas e cursos.
-> Você pode acessar as requisições da API no Postman através do seguinte link:
+>Para enviar emails, é necessário criar <a href="https://myaccount.google.com/apppasswords?rapt=AEjHL4OQ0L3foz-LDBUJK3HzV_0cKD8whSP0HsSNcx0dQiUJsHCeNtP_L_bGOuAPwED8uokMMXCLYhq-si29EPSOKtmhiySfNxqALXmrVcJlKmJoHcN0euE"> senhas de APP pela conta do Google </a>
 
-[Requisições no Postman](https://www.postman.com/joaoenrique/projeto-integrador/collection/2v80f7s/projeto-integrador?action=share&creator=33671486)
-
-## Instalação e Execução
+> Você pode acessar as requisições da API no Postman através do seguinte link: [Requisições no Postman](https://www.postman.com/joaoenrique/projeto-integrador/collection/2v80f7s/projeto-integrador?action=share&creator=33671486)
 
 1. Clone o repositório:
    ```bash
