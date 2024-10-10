@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const { generateRandomPassword } = require('../helpers/passwordHelper'); // Importando o helper
+const { generateRandomPassword } = require('../helpers/PasswordHelper'); // Importando o helper
 
 module.exports = async (req, res, next) => {
     try {

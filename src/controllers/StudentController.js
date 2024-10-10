@@ -6,7 +6,7 @@ const xlsx = require('xlsx');
 const path = require('path');
 const _ = require('lodash');
 const fs = require('fs');
-const { generateRandomPassword } = require('../helpers/passwordHelper'); // Importando o helper
+const { generateRandomPassword } = require('../helpers/PasswordHelper'); // Importando o helper
 
 const file = path.resolve('src/file.xlsx');
 

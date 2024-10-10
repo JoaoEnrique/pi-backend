@@ -1,15 +1,26 @@
-// Função para gerar uma senha aleatória
-function generateRandomPassword(length = 8) {
-    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+<>?";
-    let password = "";
-    for (let i = 0; i < length; i++) {
-        const randomIndex = Math.floor(Math.random() * charset.length);
-        password += charset[randomIndex];
+const bcrypt = require('bcrypt');
+
+class PasswordHelper {
+    constructor() {
+        this.size = 8;
+        this.charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+<>?";
+        this.saltRounds = 10;
     }
-    return password;
+
+    // Função para gerar uma senha aleatória
+    generateRandomPassword(length = 8) {
+        const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+<>?";
+        let password = "";
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * charset.length);
+            password += charset[randomIndex];
+        }
+        return password;
+    }
+
+    async encrypt(password){
+        return await bcrypt.hash(password, this.saltRounds);
+    }
 }
 
-// Exporta a função para ser usada em outros arquivos
-module.exports = {
-    generateRandomPassword
-};
+module.exports = new PasswordHelper();
