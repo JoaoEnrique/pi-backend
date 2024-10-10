@@ -48,24 +48,7 @@ Rotas de alunos, coordenadores, professores, turmas e cursos. Envia senha dos al
 
 ## Teste
 1. npm test:
-   ```bash
-    > pi-backend@1.0.0 test
-    > jest --passWithNoTests
-
-    console.log
-    Executing (default): INSERT INTO `users` (`id`,`name`,`email`,`password`,`user_type`,`created_at`,`updated_at`) VALUES (DEFAULT,?,?,?,?,?,?);
-
-    at Sequelize.log (node_modules/sequelize/src/sequelize.js:1281:15)
-
-    PASS  src/controllers/test/StudentController.test.ts
-      Student Controller
-        √ Should creane a student (134 ms)
-
-    Test Suites: 1 passed, 1 total
-    Tests:       1 passed, 1 total
-    Snapshots:   0 total
-    Time:        2.306 s, estimated 3 s
-   ```
+![alt text](image.png)
 
 
 
