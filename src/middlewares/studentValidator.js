@@ -9,7 +9,7 @@ module.exports = async (req, res, next) => {
         if(!name || !email)
             return res.status(400).json({error: 'Insira todos os campos'});
 
-        req.validatedData = { name, email, hashedPassword, password, code };
+        req.body = { name, email, hashedPassword, password, code };
 
         next();
     } catch (error) {

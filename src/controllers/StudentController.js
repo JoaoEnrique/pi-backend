@@ -26,7 +26,7 @@ class StudentController {
 
     async store(req, res){
         try {
-            const {  name, email, hashedPassword, password, code } = req.validatedData;
+            const {  name, email, hashedPassword, password, code } = req.body;
             const user = await Student.create({
                 name, email, hashedPassword, user_type: "student", code
             })
@@ -149,7 +149,7 @@ class StudentController {
     async update(req, res) {
         try {
             const { user_id } = req.params;
-            const {  name, email, password, code } = req.validatedData;
+            const {  name, email, password, code } = req.body;
 
             // Verificar se o ID do Aluno foi passado
             if (!user_id)
