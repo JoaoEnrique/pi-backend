@@ -13,9 +13,7 @@ class EmailController {
 
             try {
                 await transporter.sendMail(mailOptions);
-                console.log('E-mail enviado com sucesso para:', user.email);
             } catch (error) {
-                console.error('Erro ao enviar e-mail:', error);
                 // throw new Error('Erro ao enviar e-mail com a senha');
             }
         }
