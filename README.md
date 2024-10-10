@@ -1,7 +1,6 @@
 Rotas de alunos, coordenadores, professores, turmas e cursos. Envia senha dos alunos por email.
 >Para enviar emails, é necessário criar <a href="https://myaccount.google.com/apppasswords?rapt=AEjHL4OQ0L3foz-LDBUJK3HzV_0cKD8whSP0HsSNcx0dQiUJsHCeNtP_L_bGOuAPwED8uokMMXCLYhq-si29EPSOKtmhiySfNxqALXmrVcJlKmJoHcN0euE"> senhas de APP pela conta do Google </a>
 
-
 ## Instalação e Execução
 
 1. Clone o repositório:
@@ -44,6 +43,30 @@ Rotas de alunos, coordenadores, professores, turmas e cursos. Envia senha dos al
    ```bash
    npm start
     ```
+
+
+
+## Teste
+1. npm test:
+   ```bash
+    > pi-backend@1.0.0 test
+    > jest --passWithNoTests
+
+    console.log
+    Executing (default): INSERT INTO `users` (`id`,`name`,`email`,`password`,`user_type`,`created_at`,`updated_at`) VALUES (DEFAULT,?,?,?,?,?,?);
+
+    at Sequelize.log (node_modules/sequelize/src/sequelize.js:1281:15)
+
+    PASS  src/controllers/test/StudentController.test.ts
+      Student Controller
+        √ Should creane a student (134 ms)
+
+    Test Suites: 1 passed, 1 total
+    Tests:       1 passed, 1 total
+    Snapshots:   0 total
+    Time:        2.306 s, estimated 3 s
+   ```
+
 
 
 # Explicação das rotas
