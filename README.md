@@ -27,6 +27,9 @@ Rotas de alunos, coordenadores, professores, turmas e cursos.
    npm start
     ```
 
+# Teste Unitário - Jest
+1. npm test
+![alt text](image.png)
 
 # Explicação das rotas
 Aluno

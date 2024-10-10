@@ -1,54 +1,47 @@
-const PasswordHelper = require("../../helpers/PasswordHelper");
-const StudentController = require("../StudentController");
-const EmailController = require("../EmailController");
+const PasswordHelper = require("../../helpers/PasswordHelper.js");
+const StudentController = require("../StudentController.js");
+const EmailController = require("../EmailController.js");
+const Student = require("../../models/Student.js");
+const User = require("../../models/User.js");
+const connection = require('../../database/connection.js')
 
 jest.mock("../EmailController");
 
 describe('Student Controller', () => {
-  beforeEach(() => {
+  beforeEach(() =>{
     jest.clearAllMocks();
-  });
+  })
 
-    // test('Should create a student', async () => {
-    //   const request= {
-    //     body: {
-    //         code: undefined,
-    //         name: "Joao",
-    //         email: "joao@gmail.com",
-    //         password: "1234",
-    //         hashedPassword: await PasswordHelper.encrypt('1234')
-    //     }
-    //   }
+  test('Should creane a student', async () => {
+    const request= {
+      body: {
+          code: undefined,
+          name: "Joao",
+          email: "joao@gmail.com",
+          password: "1234",
+          hashedPassword: await PasswordHelper.encrypt('1234')
+      }
+    }
 
-    //   const response = {
-    //     status: jest.fn().mockReturnThis(),
-    //     json: jest.fn(),
-    //   }
+    const response = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    }
 
-    //   await StudentController.store(request, response);
-    //   expect(EmailController.sendPasswordEmail).toHaveBeenCalledTimes(1);
-    //   expect(EmailController.sendPasswordEmail).toHaveBeenCalledWith(expect.objectContaining({
-    //         code: request.body.code,
-    //         name: request.body.name,
-    //         email: request.body.email,
-    //         password: request.body.hashedPassword,
-    //         user_type: "student",
-    //   }), request.body.password);
+    User.init(connection);
 
-    //   expect(response.json).toHaveBeenCalledWith({
-    //     message: "Aluno criado",
-    //     user: expect.objectContaining({
-    //         code: request.body.code,
-    //         name: request.body.name,
-    //         email: request.body.email,
-    //         password: request.body.hashedPassword,
-    //         user_type: "student",
-    //     }),
-    //   })
-    // })
+    await StudentController.store(request, response);
+    expect(EmailController.sendPasswordEmail).toHaveBeenCalledTimes(1);
+    
+    expect(response.json).toHaveBeenCalledWith(expect.objectContaining({
+        message: "Aluno criado",
+        user: expect.any(Object) // ou a estrutura específica do objeto `user`
+      }));
+    })
 
+    test('Should not creane a student', async () => {
+      const mockCreate = jest.spyOn(Student, 'create').mockRejectedValue(new Error("Erro ao criar aluno"));
 
-    test('Should return error when not create a student', async () => {
       const request= {
         body: {
             code: undefined,
@@ -62,12 +55,11 @@ describe('Student Controller', () => {
       const response = {
         status: jest.fn().mockReturnThis(),
         json: jest.fn(),
-      }
+      };
+  
 
       await StudentController.store(request, response);
-      
-      // expect(EmailController.sendPasswordEmail).toHaveBeenCalledTimes(1);
       expect(response.status).toHaveBeenCalledWith(500);
-      expect(response.json).toHaveBeenCalledWith({ error: expect.any(String) });
+      expect(response.json).toHaveBeenCalledWith({ error: "Erro ao criar aluno" });
     })
 })
