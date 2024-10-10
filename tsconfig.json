@@ -107,6 +107,15 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true,                               /* Skip type checking all .d.ts files. */
     "rootDir": "./src",
-    "outDir": "./dist"
-  }
+    "outDir": "./dist",
+  },
+  "include": [
+    "**/*.ts", // inclui todos os arquivos .ts em qualquer diretório
+    "**/*.js" // inclui todos os arquivos .ts em qualquer diretório
+  ],
+  "exclude": [
+    "node_modules", // exclui a pasta node_modules
+    "**/*.test.ts", // opcional: exclui arquivos de teste, se necessário
+    "**/*.config.ts" // opcional: exclui arquivos de teste, se necessário
+  ]
 }
