@@ -31,12 +31,15 @@ Rotas de alunos, coordenadores, professores, turmas e cursos. Envia senha dos al
     PORT=3000
     ```
 
-4. Execute as migrações e seeds para preparar o banco de dados:
+5. Compilar arquivos typescript para javascript para conexão com banco de dados:
+   ```bash
+   npx tsc
+6. Execute as migrações e seeds para preparar o banco de dados:
    ```bash
    npx sequelize-cli db:migrate
    npx sequelize-cli db:seed:all
     ```
-5. Inicie o servidor:
+7. Inicie o servidor:
    ```bash
    npm start
     ```
