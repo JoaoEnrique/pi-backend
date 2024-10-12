@@ -33,7 +33,7 @@ class StudentController {
             })
 
             // se class_id foi enviado, insere aluno na turma
-            // if(req.body.class_id){
+            if(req.body.class_id){
                 let thisClass = await Class.findByPk(class_id); //class enviada pela requisição
                 
                 // verifica se aluno existe
@@ -45,7 +45,7 @@ class StudentController {
                 await StudentClass.create({
                     student_id: student.id, class_id: class_id, ra: code
                 });
-            // }
+            }
 
             EmailController.sendPasswordEmail(student, password);
 
@@ -201,7 +201,7 @@ class StudentController {
             });
 
              // se class_id foi enviado, insere aluno na turma
-            // if(req.body.class_id){
+            if(req.body.class_id){
                 let thisClass = await Class.findByPk(class_id); //class enviada pela requisição
                 
                 // verifica se aluno existe
@@ -211,9 +211,10 @@ class StudentController {
 
                 // insere aluno na turma
                 await StudentClass.create({
-                    class_id: class_id
+                    class_id: 12,
+                    student_id: student.id
                 });
-            // }
+            }
 
             return res.json({ message: 'Aluno atualizado com sucesso', student });
         } catch (error) {
