@@ -7,7 +7,6 @@ import EmailController from './EmailController';
 import xlsx from 'xlsx';
 import _ from 'lodash';
 import fs from 'fs';
-import bcrypt from 'bcrypt';
 import PasswordHelper from "../helpers/PasswordHelper";
 import { ModelStatic } from "sequelize";
 
@@ -26,6 +25,22 @@ class StudentController {
             return res.json(users);
         } catch (error: any) {
             return res.status(500).json({error: "a" + error});
+        }
+    }
+
+    async find(req: Request, res: Response){
+        try {
+            const courses = await Student.findOne({
+                where: { id: req.params.user_id },
+                include: {
+                    model: Class,
+                    as: 'classes',
+                    through: { attributes: [] } // Remove os atributos da tabela pivô no retorno
+                }
+            });
+            return res.json(courses);
+        } catch (error: any) {
+            return res.status(500).json({error: error.message});
         }
     }
 

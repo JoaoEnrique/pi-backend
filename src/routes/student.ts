@@ -13,17 +13,21 @@ router.get('/', (req: Request, res: Response) => {
     StudentController.index(req, res);
 });
 
-router.post('/store', async (req: Request, res: Response, next: NextFunction) => {
+router.post('/', async (req: Request, res: Response, next: NextFunction) => {
     StudentValidator.validate(req, res, next);
 }, async (req: Request, res: Response) => {
     await StudentController.store(req, res);
 });
 
-router.delete('/delete/:user_id', (req: Request, res: Response) => {
+router.get('/:user_id', (req: Request, res: Response) => {
+    StudentController.find(req, res);
+});
+
+router.delete('/:user_id', (req: Request, res: Response) => {
     StudentController.delete(req, res);
 });
 
-router.put('/update/:user_id', (req: Request, res: Response, next: NextFunction) => { 
+router.put('/:user_id', (req: Request, res: Response, next: NextFunction) => { 
     StudentValidator.validate(req, res, next);
 }, async (req: Request, res: Response) => {
     StudentController.update(req, res);

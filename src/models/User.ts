@@ -27,7 +27,7 @@ User.init({
     defaultScope: {
         attributes: { exclude: ['createdAt', 'updatedAt'] }, // campos a serem excluídos
     },
-},);
+});
 
 User.hasOne(Course, { foreignKey: 'coordinator_id', as: 'courses' });
 
