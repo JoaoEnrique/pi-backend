@@ -1,4 +1,4 @@
-'use strict';
+re'use strict';
 const bcrypt = require('bcrypt');
 
 /** @type {import('sequelize-cli').Migration} */
