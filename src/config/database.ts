@@ -1,5 +1,4 @@
 import dotenv from 'dotenv';
-import { Options } from 'sequelize';
 
 dotenv.config();
 

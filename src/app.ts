@@ -7,6 +7,7 @@ import studentsRoutes from './routes/student';
 import teachersRoutes from './routes/teacher';
 import coordinatorsRoutes from './routes/coordinator';
 import auth from './middlewares/auth';
+import './database/initializeModels'
 
 const app = express();
 

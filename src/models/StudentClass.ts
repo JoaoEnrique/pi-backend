@@ -3,7 +3,7 @@ import connection from '../database/connection';
 
 class StudentClass extends Model {
     static initialize(){
-        super.init({
+        StudentClass.init({
             student_id: {
                 type: DataTypes.INTEGER,
                 references: {
@@ -33,7 +33,5 @@ class StudentClass extends Model {
         })
     }
 }
-
-StudentClass.initialize();
 
 export default StudentClass;

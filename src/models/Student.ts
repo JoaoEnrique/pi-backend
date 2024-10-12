@@ -4,16 +4,9 @@ import StudentClass from './StudentClass';
 import connection from '../database/connection'
 
 class Student extends User {
-    // static init(connection) {
-    //     return super.init(connection);  // Chama o init da classe base (User)
-    // }
-
-    // static associate(models) {
-    //     this.belongsToMany(models.Class, { through: 'student_classes', as: 'classes', foreignKey: 'class_id' });
-    // }
+    static initialize() {
+        return super.initialize();  // Chama o init da classe base (User)
+    }
 }
-
-// Student.init();
-Student.belongsToMany(Class, { through: StudentClass, as: 'classes', foreignKey: 'class_id' });
 
 export default Student;
