@@ -121,39 +121,36 @@ class StudentController {
                 if (student) {
                     existingStudent.push(student)
                 } else{
-                    const saltRounds = 10; // Número de saltos para o algoritmo, mais saltos significa mais segurança, mas também mais lento.
-                    const hashedPassword = await bcrypt.hash(row['password'], saltRounds);
-
                     student = await Student.create({
                         name: row['name'],
                         email: row['email'],
-                        password: hashedPassword, // Defina uma senha padrão ou gere uma
+                        password: row['password'], // Defina uma senha padrão ou gere uma
                         user_type: "student",
                         code: row['ra']
                     });
                     EmailController.sendPasswordEmail(student, row['password']);
                 }
 
-                if(req.body.class_id){
-                    let thisClass = await Class.findByPk(req.body.class_id);
-                    let student_class = await StudentClass.findOne({ 
-                        where: {
-                            class_id: req.body.class_id,
-                            student_id: student.id
-                        } 
-                    });
+                // if(req.body.class_id){
+                //     let thisClass = await Class.findByPk(req.body.class_id);
+                //     let student_class = await StudentClass.findOne({ 
+                //         where: {
+                //             class_id: req.body.class_id,
+                //             student_id: student.id
+                //         } 
+                //     });
 
-                    if(!thisClass)
-                        return res.status(400).json({ message: 'Essa turma não existe ou foi excluida' });
+                //     if(!thisClass)
+                //         return res.status(400).json({ message: 'Essa turma não existe ou foi excluida' });
 
-                    if(student_class){
-                        existingStudentClass.push(student)
-                    } else {
-                        await StudentClass.create({
-                            student_id: student.id, class_id: req.body.class_id, ra: row['ra']
-                        });
-                    }
-                }
+                //     if(student_class){
+                //         existingStudentClass.push(student)
+                //     } else {
+                //         await StudentClass.create({
+                //             student_id: student.id, class_id: req.body.class_id, ra: row['ra']
+                //         });
+                //     }
+                // }
             }
 
 
