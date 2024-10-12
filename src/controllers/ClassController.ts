@@ -1,5 +1,7 @@
 import Class  from '../models/Class';
 import { Request, Response } from 'express';
+import User from '../models/User';
+import Course from '../models/Course';
 
 class ClassController {
     async index(req: Request, res: Response){
@@ -23,6 +25,29 @@ class ClassController {
             return res.json({message: "Turma criada", class: newClass});
         } catch (error: any) {
             return res.status(500).json({error: error.message, errormessage: error + ""});
+        }
+    }
+
+    async find(req: Request, res: Response){
+        try {
+            const thisClass = await Class.findOne({
+                where: { id: req.params.course_id },
+                include: [
+                    {
+                        model: User,
+                        as: 'teacher',
+                        attributes: ['name']
+                    },
+                    {
+                        model: Course,
+                        as: 'course',
+                        attributes: ['name', 'is_annual']
+                    }
+                ]
+            });
+            return res.json(thisClass);
+        } catch (error: any) {
+            return res.status(500).json({error: error.message});
         }
     }
 

@@ -10,10 +10,11 @@ StudentClass.initialize();
 Class.initialize();
 
 // Cursos
-Course.belongsToMany(Student, { through: 'student_posts', foreignKey: 'student_id', as: 'students' });
+Course.belongsTo(User, { foreignKey: 'coordinator_id', as: 'coordinator'});
 
 // Usuários
 User.hasOne(Course, { foreignKey: 'coordinator_id', as: 'courses' });
+User.hasOne(Class, { foreignKey: 'teacher_id', as: 'teacher' });
 
 // Alunos
 Student.belongsToMany(Class, { through: StudentClass, as: 'classes', foreignKey: 'class_id' });

@@ -1,6 +1,7 @@
 import { ModelStatic } from 'sequelize';
 import Course from '../models/Course';
 import { Request, Response } from 'express';
+import User from '../models/User';
 
 class CourseController {
     private model: ModelStatic<Course> = Course;
@@ -24,6 +25,24 @@ class CourseController {
             })
 
             return res.json({message: "Curso criado", course});
+        } catch (error: any) {
+            return res.status(500).json({error: error.message});
+        }
+    }
+
+    async find(req: Request, res: Response){
+        try {
+            const courses = await Course.findOne({
+                where: { id: req.params.course_id },
+                include: [
+                    {
+                        model: User,
+                        as: 'coordinator',
+                        attributes: ['name']
+                    }
+                ]
+            });
+            return res.json(courses);
         } catch (error: any) {
             return res.status(500).json({error: error.message});
         }

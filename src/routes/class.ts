@@ -8,17 +8,21 @@ router.get('/', (req: Request, res: Response) => {
     ClassController.index(req, res);
 });
 
-router.post('/store', async (req: Request, res: Response, next: NextFunction) => {
+router.post('/', async (req: Request, res: Response, next: NextFunction) => {
     ClassValidator.validate(req, res, next);
 }, async (req: Request, res: Response) => {
     await ClassController.store(req, res);
 });
 
-router.delete('/delete/:course_id', (req: Request, res: Response) => {
+router.get('/:course_id', (req: Request, res: Response) => {
+    ClassController.find(req, res);
+});
+
+router.delete('/:course_id', (req: Request, res: Response) => {
     ClassController.delete(req, res);
 });
 
-router.put('/update/:course_id', (req: Request, res: Response, next: NextFunction) => { 
+router.put('/:course_id', (req: Request, res: Response, next: NextFunction) => { 
     ClassValidator.validate(req, res, next);
 }, async (req: Request, res: Response) => {
     ClassController.update(req, res);
