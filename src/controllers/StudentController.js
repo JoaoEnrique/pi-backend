@@ -39,6 +39,18 @@ class StudentController {
         }
     }
 
+    async find(req, res){
+        try {
+            const courses = await Student.findOne({
+                where: { id: req.params.user_id },
+            });
+            return res.json(courses);
+        } catch (error) {
+            return res.status(500).json({error: error.message});
+        }
+    }
+    
+
     async storeByFile(req, res){
         try {
             // Certifique-se de que o arquivo foi enviado
