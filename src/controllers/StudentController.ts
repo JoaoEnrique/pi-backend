@@ -24,7 +24,7 @@ class StudentController {
             });
             return res.json(users);
         } catch (error: any) {
-            return res.status(500).json({error: "a" + error});
+            return res.status(500).json({error: error.message});
         }
     }
 
@@ -47,13 +47,13 @@ class StudentController {
     async store(req: Request, res: Response){
         try {
             const {  name, email, hashedPassword, password, code } = req.body;
-            const user = await Student.create({
+            const student = await Student.create({
                 name, email, password: hashedPassword, user_type: "student", code
             })
 
-            EmailController.sendPasswordEmail(user, password);
+            EmailController.sendPasswordEmail(student, password);
 
-            return res.json({message: "Aluno criado", user});
+            return res.json({message: "Aluno criado", student});
         } catch (error: any) {
             return res.status(500).json({error: error.message});
         }
