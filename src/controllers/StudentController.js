@@ -18,6 +18,7 @@ class StudentController {
                     user_type: "student"
                 }
             });
+
             return res.json(users);
         } catch (error) {
             return res.status(500).json({error: error.message});
@@ -26,14 +27,29 @@ class StudentController {
 
     async store(req, res){
         try {
-            const {  name, email, hashedPassword, password, code } = req.body;
-            const user = await Student.create({
+            const {  name, email, hashedPassword, password, code, class_id } = req.body;
+            const student = await Student.create({
                 name, email, hashedPassword, user_type: "student", code
             })
 
-            EmailController.sendPasswordEmail(user, password);
+            // se class_id foi enviado, insere aluno na turma
+            // if(req.body.class_id){
+                let thisClass = await Class.findByPk(class_id); //class enviada pela requisição
+                
+                // verifica se aluno existe
+                if(!thisClass)
+                    return res.status(400).json({ message: 'Aluno criado, mas não inserido na turma. Essa turma não existe ou foi excluida' });
 
-            return res.json({message: "Aluno criado", user});
+
+                // insere aluno na turma
+                await StudentClass.create({
+                    student_id: student.id, class_id: class_id, ra: code
+                });
+            // }
+
+            EmailController.sendPasswordEmail(student, password);
+
+            return res.json({message: "Aluno criado", student});
         } catch (error) {
             return res.status(500).json({error: error.message});
         }
@@ -43,6 +59,11 @@ class StudentController {
         try {
             const courses = await Student.findOne({
                 where: { id: req.params.user_id },
+                include: {
+                    model: Class,
+                    as: 'classes',
+                    through: { attributes: [] } // Remove os atributos da tabela pivô no retorno
+                }
             });
             return res.json(courses);
         } catch (error) {
@@ -157,31 +178,46 @@ class StudentController {
         }
     }
 
-
     async update(req, res) {
         try {
             const { user_id } = req.params;
-            const {  name, email, password, code } = req.body;
+            const {  name, email, password, code, class_id } = req.body;
+
 
             // Verificar se o ID do Aluno foi passado
             if (!user_id)
                 return res.status(400).json({ error: 'ID do Aluno não encontrado' });
 
             // Buscar o Aluno no banco
-            const user = await Student.findByPk(user_id);
+            const student = await Student.findByPk(user_id);
 
             // Verificar se o Aluno existe
-            if (!user)
+            if (!student)
                 return res.status(404).json({ error: 'Aluno não encontrado' });
 
             // Atualizar o Aluno com os novos dados
-            await user.update({
+            await student.update({
                 name, email, password, code
             });
 
-            return res.json({ message: 'Aluno atualizado com sucesso', user });
+             // se class_id foi enviado, insere aluno na turma
+            // if(req.body.class_id){
+                let thisClass = await Class.findByPk(class_id); //class enviada pela requisição
+                
+                // verifica se aluno existe
+                if(!thisClass)
+                    return res.status(400).json({ message: 'Aluno criado, mas não inserido na turma. Essa turma não existe ou foi excluida' });
+
+
+                // insere aluno na turma
+                await StudentClass.create({
+                    class_id: class_id
+                });
+            // }
+
+            return res.json({ message: 'Aluno atualizado com sucesso', student });
         } catch (error) {
-            return res.status(500).json({error: error.message});
+            return res.status(500).json({error: error});
         }
     }
 

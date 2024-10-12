@@ -1,4 +1,5 @@
 const User = require('./User')
+const StudentClass = require('./StudentClass')
 
 class Student extends User {
     static init(connection) {
@@ -6,7 +7,7 @@ class Student extends User {
     }
 
     static associate(models) {
-        this.belongsToMany(models.Class, { through: 'student_classes', as: 'classes', foreignKey: 'class_id' });
+        this.belongsToMany(models.Class, { through: StudentClass, as: 'classes', foreignKey: 'class_id' });
     }
 }
 
