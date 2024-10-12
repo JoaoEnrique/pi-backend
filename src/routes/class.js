@@ -4,8 +4,8 @@ const classValidator = require('../middlewares/classValidator');
 const router = express.Router();
 
 router.get('/', ClassController.index);
-router.post('/store', classValidator, ClassController.store);
-router.delete('/delete/:class_id', ClassController.delete);
-router.put('/update/:class_id', classValidator, ClassController.update);
+router.post('/', classValidator, ClassController.store);
+router.delete('/:class_id', ClassController.delete);
+router.put('/:class_id', classValidator, ClassController.update);
 
 module.exports = router;

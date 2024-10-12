@@ -5,9 +5,9 @@ const uploadFile = require('../middlewares/uploadFile');
 const router = express.Router();
 
 router.get('/', StudentController.index);
-router.post('/store', studentValidator, StudentController.store);
+router.post('/', studentValidator, StudentController.store);
 router.post('/store-by-file', uploadFile.single('file'), StudentController.storeByFile);
-router.delete('/delete/:user_id', StudentController.delete);
-router.put('/update/:user_id', studentValidator, StudentController.update);
+router.delete('/:user_id', StudentController.delete);
+router.put('/:user_id', studentValidator, StudentController.update);
 
 module.exports = router;

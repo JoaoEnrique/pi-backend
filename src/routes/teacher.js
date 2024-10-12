@@ -4,8 +4,8 @@ const userValidator = require('../middlewares/userValidator');
 const router = express.Router();
 
 router.get('/', TeacherController.index);
-router.post('/store', userValidator, TeacherController.store);
-router.delete('/delete/:user_id', TeacherController.delete);
-router.put('/update/:user_id', userValidator, TeacherController.update);
+router.post('', userValidator, TeacherController.store);
+router.delete('/:user_id', TeacherController.delete);
+router.put('/:user_id', userValidator, TeacherController.update);
 
 module.exports = router;

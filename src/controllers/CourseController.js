@@ -34,6 +34,24 @@ class CourseController {
         }
     }
 
+    async find(req, res){
+        try {
+            const courses = await Course.findOne({
+                where: { id: req.params.course_id },
+                include: [
+                    {
+                        model: User,
+                        as: 'coordinator',
+                        attributes: ['name']
+                    }
+                ]
+            });
+            return res.json(courses);
+        } catch (error) {
+            return res.status(500).json({error: error.message});
+        }
+    }
+
     async update(req, res) {
         try {
             const { course_id } = req.params;
