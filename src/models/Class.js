@@ -15,7 +15,7 @@ class Class extends Model {
     }
 
     static associate(models){
-        this.belongsTo(models.User, { foreignKey: 'teacher_id', as: 'teacher_tg'})
+        this.belongsTo(models.User, { foreignKey: 'teacher_id', as: 'teacher'})
         this.belongsToMany(models.User, { through: 'student_posts', foreignKey: 'student_id', as: 'students'})
         this.belongsTo(models.Course, { foreignKey: 'course_id', as: 'course'})
     }

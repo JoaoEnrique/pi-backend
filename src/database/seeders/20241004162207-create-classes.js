@@ -6,21 +6,21 @@ module.exports = {
     await queryInterface.bulkInsert('Classes', [
       {
         semester: 1,
-        teacher_id: 1, 
+        teacher_id: 3, 
         course_id: 1,
         created_at: new Date(),
         updated_at: new Date(),
       },
       {
         semester: 2,
-        teacher_id: 2, 
+        teacher_id: 3, 
         course_id: 1,
         created_at: new Date(),
         updated_at: new Date(),
       },
       {
         semester: 1,
-        teacher_id: 2, 
+        teacher_id: 4, 
         course_id: 2,
         created_at: new Date(),
         updated_at: new Date(),

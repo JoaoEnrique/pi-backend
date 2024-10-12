@@ -1,9 +1,24 @@
 const Class = require('../models/Class.js')
+const User = require('../models/User.js')
+const Course = require('../models/Course.js')
 
 class ClassController {
     async index(req, res){
         try {
-            const classes = await Class.findAll();
+            const classes = await Class.findAll({
+                include: [
+                    {
+                        model: User,
+                        as: 'teacher',
+                        attributes: ['name']
+                    },
+                    {
+                        model: Course,
+                        as: 'course',
+                        attributes: ['name']
+                    }
+                ]
+            });
             return res.json(classes);
         } catch (error) {
             return res.status(500).json({error: error.message});

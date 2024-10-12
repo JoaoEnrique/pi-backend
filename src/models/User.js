@@ -21,6 +21,7 @@ class User extends Model {
 
    static associate(models) {
        this.hasOne(models.Course, { foreignKey: 'coordinator_id', as: 'courses' });
+       this.hasOne(models.Class, { foreignKey: 'teacher_id', as: 'teacher' });
    }
 }
 
