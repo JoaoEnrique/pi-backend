@@ -6,7 +6,7 @@
   "type": "commonjs",
   "scripts": {
     "test": "jest --passWithNoTests",
-    "start": "npx sequelize-cli db:migrate && node src/server.js",
+    "start": "npm install && npx sequelize-cli db:migrate && node src/server.js",
     "dev": "nodemon src/server.js",
     "sequelize": "sequelize",
     "vercel-build": "npm install"
