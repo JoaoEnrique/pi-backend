@@ -10,6 +10,11 @@ const Class = require('../models/Class');
 
 const connection = new Sequelize(dbConfig);
 
+connection.authenticate()
+.catch(err => {
+    console.error('Não foi possível conectar ao banco de dados:', err);
+});
+
 // Inicialização dos modelos
 User.init(connection);
 Student.init(connection);
