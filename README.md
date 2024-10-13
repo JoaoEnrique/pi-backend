@@ -276,7 +276,7 @@ PUT /api/classes/{class_id}
     "user": {
       "name": "Professor",
       "email": "professor@gmail.com",
-      "password": "123",
+      "password": "$2b$10$MMRIPwMm5JG4e7x/ZNaf/.GtgIHRDbJei0tKqecKZ8JSXpFf.4YxO",
       "code": "123456"
     }
   }
@@ -329,7 +329,7 @@ PUT /api/classes/{class_id}
         "name": "Coordenador",
         "email": "Coordenador@gmail.com",
         "password": "$2b$10$MMRIPwMm5JG4e7x/ZNaf/.GtgIHRDbJei0tKqecKZ8JSXpFf.4YxO",
-        "user_type": "teacher",
+        "user_type": "coordinator",
         "created_at": "2024-10-07T12:25:48.000Z",
         "updated_at": "2024-10-07T12:25:48.000Z"
     }
@@ -363,7 +363,7 @@ PUT /api/classes/{class_id}
     "user": {
       "name": "Coordenador",
       "email": "Coordenador@gmail.com",
-      "password": "123",
+      "password": "$2b$10$MMRIPwMm5JG4e7x/ZNaf/.GtgIHRDbJei0tKqecKZ8JSXpFf.4YxO",
       "code": "123456"
     }
   }
@@ -395,8 +395,10 @@ PUT /api/classes/{class_id}
   
   Cadastra um novo curso. Requer os seguintes dados no corpo da requisição:
   - `name`: Nome do curso (string, obrigatório)
-  - `description`: Descrição do curso (string, opcional)
-  - `coordinator_id`: ID do coordenador responsável (inteiro, opcional)
+  - `period`: Periodo do curso (string, obrigatório)
+  - `is_annual`: Se o curso é anual (boleano, obrigatório)
+  - `type_work`: Tipo de trabalho (string, obrigatório)
+  - `coordinator_id`: ID do coordenador responsável (inteiro, obrigatório)
 
   Exemplo de corpo da requisição:
   ```json
@@ -525,7 +527,7 @@ PUT /api/classes/{class_id}
 <br>
 
 - **Atualizar Turma**  
-    `PUT /api/students/{user_id}`
+    `PUT /api/students/{class_id}`
 
     Atualiza os dados de uma turma específica pelo `class_id`.
         
