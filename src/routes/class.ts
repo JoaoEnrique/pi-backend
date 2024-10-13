@@ -14,15 +14,15 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
     await ClassController.store(req, res);
 });
 
-router.get('/:course_id', (req: Request, res: Response) => {
+router.get('/:class_id', (req: Request, res: Response) => {
     ClassController.find(req, res);
 });
 
-router.delete('/:course_id', (req: Request, res: Response) => {
+router.delete('/:class_id', (req: Request, res: Response) => {
     ClassController.delete(req, res);
 });
 
-router.put('/:course_id', (req: Request, res: Response, next: NextFunction) => { 
+router.put('/:class_id', (req: Request, res: Response, next: NextFunction) => { 
     ClassValidator.validate(req, res, next);
 }, async (req: Request, res: Response) => {
     ClassController.update(req, res);

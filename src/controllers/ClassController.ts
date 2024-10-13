@@ -44,7 +44,7 @@ class ClassController {
     async find(req: Request, res: Response){
         try {
             const thisClass = await Class.findOne({
-                where: { id: req.params.course_id },
+                where: { id: req.params.class_id },
                 include: [
                     {
                         model: User,
