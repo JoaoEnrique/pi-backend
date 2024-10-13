@@ -13,7 +13,24 @@ Rotas de alunos, coordenadores, professores, turmas e cursos. Envio de emails ao
    npm run dev
     ```
 
-3. Configure o banco de dados e as variáveis de ambiente no arquivo .env.
+3. Configure o banco de dados e as variáveis de ambiente no arquivo .env. Para enviar email, crie uma senha de app 
+   ```bash
+    # Database - funciona com mysql e postgre 
+    DB_DIALECT=mysql # pode utilizar postgre
+    DB_DATABASE=projeto_integrador
+    DB_USER=root
+    DB_PASSWORD=
+    DB_PORT=3306 #trocar para 5432 se for postgre
+    DB_HOST=localhost
+
+    # EMAIL - é necessário criar um serviço SMTP
+    SEND_MAIL=0 # Ativar envio de emails na criação de alunos (cuidado, pois ao criar aluno por arquivo, todos os alunos receberam o email)
+    EMAIL_SERVICE='gmail'
+    EMAIL_USER=
+    EMAIL_PASS=sua-senha-de-app
+
+    PORT=3000
+   ```
 
 4. Execute as migrações e seeds para preparar o banco de dados:
    ```bash
