@@ -7,7 +7,7 @@ Frontend
 https://piardigans.vercel.app/
 
 Backend
-https://pi-backend-jqsj.onrender.com/api
+https://pi-backend-jqsj.onrender.com
 
 1. Clone o repositório:
    ```bash
