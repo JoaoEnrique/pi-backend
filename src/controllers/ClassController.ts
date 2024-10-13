@@ -6,7 +6,20 @@ import Course from '../models/Course';
 class ClassController {
     async index(req: Request, res: Response){
         try {
-            const classes = await Class.findAll();
+            const classes = await Class.findAll({
+                include: [
+                    {
+                        model: User,
+                        as: 'teacher',
+                        attributes: ['name']
+                    },
+                    {
+                        model: Course,
+                        as: 'course',
+                        attributes: ['name', 'is_annual']
+                    }
+                ]
+            });
             return res.json(classes);
         } catch (error: any) {
             return res.status(500).json({error: error.message});

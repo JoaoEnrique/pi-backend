@@ -20,6 +20,6 @@ User.hasOne(Class, { foreignKey: 'teacher_id', as: 'teacher' });
 Student.belongsToMany(Class, { through: StudentClass, as: 'classes', foreignKey: 'class_id' });
 
 // Turmas
-Class.belongsTo(User, { foreignKey: 'teacher_id', as: 'teacher_tg' });
+Class.belongsTo(User, { foreignKey: 'teacher_id', as: 'teacher' });
 Class.belongsToMany(User, { through: 'student_posts', foreignKey: 'student_id', as: 'students' });
 Class.belongsTo(Course, { foreignKey: 'course_id', as: 'course' });
