@@ -8,7 +8,15 @@ class CourseController {
 
     async index(req: Request, res: Response): Promise<Response>{
         try {
-            const courses = await this.model.findAll();
+            const courses = await this.model.findAll({
+                include: [
+                    {
+                        model: User,
+                        as: 'coordinator',
+                        attributes: ['name']
+                    }
+                ]
+            });
             return res.json(courses);
         } catch (error: any) {
             return res.status(500).json({error: error.message});
