@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.get('/', TeacherController.index);
 router.post('', userValidator, TeacherController.store);
+router.get('/:user_id', TeacherController.find);
 router.delete('/:user_id', TeacherController.delete);
 router.put('/:user_id', userValidator, TeacherController.update);
 

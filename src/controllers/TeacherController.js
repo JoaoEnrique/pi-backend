@@ -31,6 +31,18 @@ class TeacherController {
         }
     }
 
+    async find(req, res){
+        try {
+            const teacher = await User.findOne({
+                where: { id: req.params.user_id }
+            });
+            return res.json(teacher);
+        } catch (error) {
+            return res.status(500).json({error: error.message});
+        }
+    }
+    
+
     async update(req, res) {
         try {
             const { user_id } = req.params;
