@@ -19,13 +19,24 @@ class CoordinatorController {
         try {
             const {  name, email, hashedPassword, password, code } = req.validatedData;
 
-            const user = await User.create({
+            const coordinator = await User.create({
                 name, email, password: hashedPassword, user_type: 'coordinator', code
             })
 
-            EmailController.sendPasswordEmail(user, password);
+            EmailController.sendPasswordEmail(coordinator, password);
 
-            return res.json({message: "Coordenador criado", user});
+            return res.json({message: "Coordenador criado", coordinator});
+        } catch (error) {
+            return res.status(500).json({error: error.message});
+        }
+    }
+
+    async find(req, res){
+        try {
+            const teacher = await User.findOne({
+                where: { id: req.params.user_id }
+            });
+            return res.json(teacher);
         } catch (error) {
             return res.status(500).json({error: error.message});
         }
@@ -41,18 +52,18 @@ class CoordinatorController {
                 return res.status(400).json({ error: 'ID do Coordenador não encontrado' });
 
             // Buscar o Coordenador no banco
-            const user = await User.findByPk(user_id);
+            const coordinator = await User.findByPk(user_id);
 
             // Verificar se o Coordenador existe
-            if (!user)
+            if (!coordinator)
                 return res.status(404).json({ error: 'Coordenador não encontrado' });
 
             // Atualizar o Coordenador com os novos dados
-            await user.update({
+            await coordinator.update({
                 name, email, password: hashedPassword, code
             });
 
-            return res.json({ message: 'Coordenador atualizado com sucesso', user });
+            return res.json({ message: 'Coordenador atualizado com sucesso', coordinator });
         } catch (error) {
             return res.status(500).json({error: error.message});
         }
