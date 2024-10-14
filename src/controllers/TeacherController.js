@@ -19,13 +19,13 @@ class TeacherController {
         try {
             const { name, email, password, hashedPassword, code } = req.validatedData;
 
-            const user = await User.create({
+            const teacher = await User.create({
                 name, email, password: hashedPassword, user_type: 'teacher', code
             })
 
-            EmailController.sendPasswordEmail(user, password);
+            EmailController.sendPasswordEmail(teacher, password);
 
-            return res.json({message: "Professor criado", user});
+            return res.json({message: "Professor criado", teacher});
         } catch (error) {
             return res.status(500).json({error: error.message});
         }
@@ -41,19 +41,19 @@ class TeacherController {
                 return res.status(400).json({ error: 'ID do Professor não encontrado' });
 
             // Buscar o Professor no banco
-            const user = await User.findByPk(user_id);
+            const teacher = await User.findByPk(user_id);
 
             // Verificar se o Professor existe
-            if (!user)
+            if (!teacher)
                 return res.status(404).json({ error: 'Professor não encontrado' });
 
 
             // Atualizar o Professor com os novos dados
-            await user.update({
+            await teacher.update({
                 name, email, password: hashedPassword, code
             });
 
-            return res.json({ message: 'Professor atualizado com sucesso', user });
+            return res.json({ message: 'Professor atualizado com sucesso', teacher });
         } catch (error) {
             return res.status(500).json({error: error.message});
         }
